@@ -1045,7 +1045,7 @@ static int fill_scaling_list_addr_in_pps(
 		int i = 0;
 		u32 const iova = vcodec_fd_to_iova(data, reg->session, reg,
 					scaling_fd);
-		u32 const offseted_iova = iova + scalling_offset;
+		u32 const offseted_iova = iova + scaling_offset;
 		if (IS_ERR_VALUE(iova)) {
 			print_exit_func_with_issue(data->dev);
 			return -1;
@@ -1406,10 +1406,13 @@ static struct vpu_reg *reg_init(struct vpu_subdev_data *data,
 	}
 
 	dev_err(pservice->dev, "Dumping registers\n");
+{
+	int i;
 	for (i = 0; i < size >> 2; i++)
 			dev_err(pservice->dev, "reg[%02d]: %08x\n",
 				i, *((u32 *)src + i));
 
+}
 	if (vcodec_reg_address_translate(data, session, reg, &extra_info) < 0) {
 		int i = 0;
 
